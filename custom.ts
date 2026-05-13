@@ -100,7 +100,41 @@ namespace PixelBox {
             }
         }
     }
-    
+
+
+    /**
+     * Replace Color
+     * @param targetColor - The color to be replaced
+     * @param replacementColor - The new color to insert
+     * @param startRow - The row to start the replacement
+     * @param endRow - The row to end the replacement
+     * @param startCol - The column to start the replacement
+     * @param endCol - The column to end the replacement
+     */
+
+    //% block="replace%targetColor with%replacementColor"
+    //% inlineInputMode=inline
+    //% targetColor.shadow="customColorPicker"
+    //% replacementColor.shadow="customColorPicker"
+    export function replaceColor(targetColor: number, replacementColor: number): void {
+
+        for (let r = 0; r <= 7; r++) {
+            for (let c = 0; c <= 7; c++) {
+                if (img[r][c] == targetColor) {
+                    img[r][c] = replacementColor;
+                }
+            }
+        }
+
+        for (let r = 0; r <= 7; r++) {
+            for (let c = 0; c <= 7; c++) {
+                strip.setPixelColor(r * 8 + c, img[r][c])
+            }
+        }
+
+    }
+
+
     /**
      * Replace Color Range
      * @param targetColor - The color to be replaced
@@ -117,7 +151,7 @@ namespace PixelBox {
     //% replacementColor.shadow="customColorPicker"
     //% endRow.defl=RC_Index.Seven
     //% endCol.defl=RC_Index.Seven
-    export function replaceRange(targetColor: number, replacementColor: number, startRow: RC_Index, endRow: RC_Index, startCol: RC_Index, endCol: RC_Index): void {
+    export function replaceColorRange(targetColor: number, replacementColor: number, startRow: RC_Index, endRow: RC_Index, startCol: RC_Index, endCol: RC_Index): void {
 
         for (let r = startRow; r <= endRow; r++) {
             for (let c = startCol; c <= endCol; c++) {
