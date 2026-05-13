@@ -58,12 +58,19 @@ namespace PixelBox {
     /**
      * Custom Color Picker
      */
-    //% blockId=customColorPicker block="%value"
-    //% shim=TD_ID colorSecondary="#FFFFFF"
-    //% value.fieldEditor="colornumber" value.fieldOptions.decompileLiterals=true
-    //% value.defl='#000000' weight=150
-    //% value.fieldOptions.colours='["#ff0000","#00ff00","#0000ff","#ffff00","#ff00ff","#00ffff","#ffffff","#808080","#000000"]'
-    //% value.fieldOptions.columns=3 value.fieldOptions.className='rgbColorPicker' 
+    //% blockId=customColorPicker
+    //% block="%value"
+    //% shim=TD_ID
+    //% colorSecondary="#ff0000"
+    //% value.fieldEditor="colornumber"
+    //% value.fieldOptions.decompileLiterals=true
+    //% value.defl='#000000'
+    //% weight=100
+    // Color Palatte:                    Red, Magenta, Pink;              Orange, Yellow, Gold;        Dark Green, Green, Light Green;       Blue, Cyan, Teal;               Purple, Medium Purple,Lavender;        Brown, Tan, Beige;              Dark Gray, Medium Gray, Light Grey;     Black, White 
+    //% value.fieldOptions.colours='["#ff0000","#ff00ff","#ffb6c1",    "#ff8000","#ffff00","#daa520",    "#008000","#00ff00","#90ee90",    "#0000ff","#00ffff","#008080",    "#4b0082","#9370db","#e6e6fa",        "#8b4513","#d2b48c","#f5deb3",   "#303030","#808080","#d0d0d0",           "#000000","#ffffff"]'
+    // value.fieldOptions.colours='["#ff0000","#00ff00","#0000ff","#ffff00","#ff00ff","#00ffff","#ffffff","#808080","#000000"]'
+    //% value.fieldOptions.columns=3 
+    //% value.fieldOptions.className='rgbColorPicker' 
     export function __colorNumberPicker(value: number) {
         return value;
     }
@@ -83,6 +90,7 @@ namespace PixelBox {
      */
     //% block="row%row%p0%p1%p2%p3%p4%p5%p6%p7"
     //% inlineInputMode=inline
+    //% weight=90
     //% p0.shadow="customColorPicker"
     //% p1.shadow="customColorPicker"
     //% p2.shadow="customColorPicker"
@@ -114,6 +122,7 @@ namespace PixelBox {
 
     //% block="replace%targetColor with%replacementColor"
     //% inlineInputMode=inline
+    //% weight = 80
     //% targetColor.shadow="customColorPicker"
     //% replacementColor.shadow="customColorPicker"
     export function replaceColor(targetColor: number, replacementColor: number): void {
@@ -147,6 +156,7 @@ namespace PixelBox {
 
     //% block="replace%targetColor with%replacementColor     Rows: %startRow to %endRow     Columns: %startCol to %endCol"
     //% inlineInputMode=inline
+    //% weight = 70
     //% targetColor.shadow="customColorPicker"
     //% replacementColor.shadow="customColorPicker"
     //% endRow.defl=RC_Index.Seven
@@ -163,13 +173,41 @@ namespace PixelBox {
 
         for (let r = 0; r <= 7; r++) {
             for (let c = 0; c <= 7; c++) {
-                strip.setPixelColor(r * 8 + c, img[r][c])
+                strip.setPixelColor(r * 8 + c, img[r][c]);
             }
         }
 
     }
 
 
+    /**
+     * Shift Image Right
+     * @param numPixR - The number of colors to shift the image right
+     */
+
+    //% block="shift    Right%numPixR"
+    //% inlineInputMode=inline
+    //% weight = 60
+    export function shiftImage(numPixR: number): void {
+
+        for (let r = 0; r <= 7; r++) {
+            for (let c = 7; c <= 1; c--) {
+                if (c > 0) {
+                    img[r][c] = img[r][c-1];
+                } else {
+                    img[r][c] = 0;
+                }
+            
+            }
+        }
+
+        for (let r = 0; r <= 7; r++) {
+            for (let c = 0; c <= 7; c++) {
+                strip.setPixelColor(r * 8 + c, img[r][c])
+            }
+        }
+
+    }
 
 
 }
