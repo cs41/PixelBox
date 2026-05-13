@@ -111,10 +111,12 @@ namespace PixelBox {
      * @param endCol - The column to end the replacement
      */
 
-    //% block="replace%targetColor with%replacementColor    Rows: %startRow to %endRow    Columns: %startCol to %endCol"
+    //% block="replace%targetColor with%replacementColor     Rows: %startRow to %endRow     Columns: %startCol to %endCol"
     //% inlineInputMode=inline
     //% targetColor.shadow="customColorPicker"
     //% replacementColor.shadow="customColorPicker"
+    //% endRow.defl=RC_Index.Seven
+    //% endCol.defl=RC_Index.Seven
     export function replaceRange(targetColor: number, replacementColor: number, startRow: RC_Index, endRow: RC_Index, startCol: RC_Index, endCol: RC_Index): void {
 
         for (let r = startRow; r <= endRow; r++) {
