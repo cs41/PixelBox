@@ -11,6 +11,6 @@ function frame1 () {
 let strip = neopixel.create(DigitalPin.P1, 64, NeoPixelMode.RGB)
 frame1()
 strip.show()
-PixelBox.shiftImage(0)
-basic.pause(100)
+basic.pause(2000)
+PixelBox.shiftImage(8)
 strip.show()

@@ -189,11 +189,11 @@ namespace PixelBox {
     //% inlineInputMode=inline
     //% weight = 60
     export function shiftImage(numPixR: number): void {
-
+//shift value is 1-8
         for (let r = 0; r <= 7; r++) {
-            for (let c = 7; c <= 1; c--) {
+            for (let c = 7; c >= 0; c--) {
                 if (c > 0) {
-                    img[r][c] = img[r][c-1];
+                    img[r][c] = img[r][c-numPixR];
                 } else {
                     img[r][c] = 0;
                 }
