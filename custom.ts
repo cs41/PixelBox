@@ -41,7 +41,16 @@ enum RC_Index{ //Row and Column Index
     Seven = 7
 }
 
-
+enum Shift_Direction { //Which direction to shift the image
+    //% block="Top"
+    "top",
+    //% block="Left"
+    "left",
+    //% block="Right"
+    "right",
+    //% block="Bottom"
+    "bottom"
+}
 
 //% weight=100 color=#000000 icon=""
 namespace PixelBox {
@@ -181,14 +190,15 @@ namespace PixelBox {
 
 
     /**
-     * Shift Image Right
+     * Shift Image
      * @param numPixR - The number of colors to shift the image right
      */
 
-    //% block="shift    Right%numPixR"
+    //% block="shift image %shiftDir %numPixR pixel(s), Fill %fillColor"
     //% inlineInputMode=inline
+    //% fillColor.shadow="customColorPicker"
     //% weight = 60
-    export function shiftImage(numPixR: number): void {
+    export function shiftImage(shiftDir: string, numPixR: number, fillColor: number): void {
 //shift value is 1-8
         for (let r = 0; r <= 7; r++) {
             for (let c = 7; c >= 0; c--) {
@@ -196,8 +206,7 @@ namespace PixelBox {
                     img[r][c] = img[r][c-numPixR];
                 } else {
                     img[r][c] = 0;
-                }
-            
+                }           
             }
         }
 
