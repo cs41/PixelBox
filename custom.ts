@@ -22,7 +22,7 @@
  * Custom blocks
  */
 
-enum RC_Index{ //Row and Column Index
+enum RCIndex{ //Row and Column Index
     //% block="0"
     Zero = 0,
     //% block="1"
@@ -41,15 +41,34 @@ enum RC_Index{ //Row and Column Index
     Seven = 7
 }
 
-enum Shift_Direction { //Which direction to shift the image
-    //% block="Top"
-    "top",
+enum ShiftDirection { //Which direction to shift the image
+    //% block="Up"
+    up,
     //% block="Left"
-    "left",
+    left,
     //% block="Right"
-    "right",
-    //% block="Bottom"
-    "bottom"
+    right,
+    //% block="Down"
+    down
+}
+
+enum ShiftPixels { //How many pixels to shift the image
+    //% block="1"
+    One = 1,
+    //% block="2"
+    Two = 2,
+    //% block="3"
+    Three = 3,
+    //% block="4"
+    Four = 4,
+    //% block="5"
+    Five = 5,
+    //% block="6"
+    Six = 6,
+    //% block="7"
+    Seven = 7,
+    //% block="8"
+    Eight = 8
 }
 
 //% weight=100 color=#000000 icon=""
@@ -108,7 +127,7 @@ namespace PixelBox {
     //% p5.shadow="customColorPicker"
     //% p6.shadow="customColorPicker"
     //% p7.shadow="customColorPicker"
-    export function pixelBoxRow(row: RC_Index, p0: number, p1: number, p2: number, p3: number, p4: number, p5: number, p6: number, p7: number): void {
+    export function pixelBoxRow(row: RCIndex, p0: number, p1: number, p2: number, p3: number, p4: number, p5: number, p6: number, p7: number): void {
         img[row]=[p0, p1, p2, p3, p4, p5, p6, p7];
         
         for (let r = 0; r <= 7; r++) {
@@ -168,9 +187,9 @@ namespace PixelBox {
     //% weight = 70
     //% targetColor.shadow="customColorPicker"
     //% replacementColor.shadow="customColorPicker"
-    //% endRow.defl=RC_Index.Seven
-    //% endCol.defl=RC_Index.Seven
-    export function replaceColorRange(targetColor: number, replacementColor: number, startRow: RC_Index, endRow: RC_Index, startCol: RC_Index, endCol: RC_Index): void {
+    //% endRow.defl=RCIndex.Seven
+    //% endCol.defl=RCIndex.Seven
+    export function replaceColorRange(targetColor: number, replacementColor: number, startRow: RCIndex, endRow: RCIndex, startCol: RCIndex, endCol: RCIndex): void {
 
         for (let r = startRow; r <= endRow; r++) {
             for (let c = startCol; c <= endCol; c++) {
@@ -191,31 +210,70 @@ namespace PixelBox {
 
     /**
      * Shift Image
-     * @param numPixR - The number of colors to shift the image right
+     * @param shiftPixels - The number of colors to shift the image right
      */
 
-    //% block="shift image %shiftDir %numPixR pixel(s), Fill %fillColor"
+    //% block="shift image %shiftDir %shiftPixels pixel(s), Fill %fillColor"
     //% inlineInputMode=inline
     //% fillColor.shadow="customColorPicker"
     //% weight = 60
-    export function shiftImage(shiftDir: string, numPixR: number, fillColor: number): void {
-//shift value is 1-8
-        for (let r = 0; r <= 7; r++) {
-            for (let c = 7; c >= 0; c--) {
-                if (c > 0) {
-                    img[r][c] = img[r][c-numPixR];
-                } else {
-                    img[r][c] = 0;
-                }           
-            }
+    export function shiftImage(shiftDir: ShiftDirection, shiftPixels: ShiftPixels, fillColor: number): void {
+        switch(shiftDir){
+            case ShiftDirection.up:
+                //Shift img Array Right
+                for (let r = 0; r <= 7; r++) {
+                    for (let c = 7; c >= 0; c--) {
+                        if (c > 0) {
+                            img[r][c] = img[r][c - shiftPixels];
+                        } else {
+                            img[r][c] = 0;
+                        }
+                    }
+                };
+
+            case ShiftDirection.left:
+            //Shift img Array Right
+            for (let r = 0; r <= 7; r++) {
+                for (let c = 7; c >= 0; c--) {
+                    if (c > 0) {
+                        img[r][c] = img[r][c - shiftPixels];
+                    } else {
+                        img[r][c] = 0;
+                    }
+                }
+            };
+
+            case ShiftDirection.right:
+            //Shift img Array Right
+            for (let r = 0; r <= 7; r++) {
+                for (let c = 7; c >= 0; c--) {
+                    if (c > 0) {
+                        img[r][c] = img[r][c-shiftPixels];
+                    } else {
+                        img[r][c] = 0;
+                    }           
+                }
+            };
+
+            case ShiftDirection.down:
+                //Shift img Array Right
+                for (let r = 0; r <= 7; r++) {
+                    for (let c = 7; c >= 0; c--) {
+                        if (c > 0) {
+                            img[r][c] = img[r][c - shiftPixels];
+                        } else {
+                            img[r][c] = 0;
+                        }
+                    }
+                };
         }
 
+        //Upload img Array to the PixelBox Screen
         for (let r = 0; r <= 7; r++) {
             for (let c = 0; c <= 7; c++) {
                 strip.setPixelColor(r * 8 + c, img[r][c])
             }
         }
-
     }
 
 
