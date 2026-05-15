@@ -83,8 +83,8 @@ namespace PixelBox {
                [0, 0, 0, 0, 0, 0, 0, 0],
                [0, 0, 0, 0, 0, 0, 0, 0]];
 
-    /**
-     * Custom Color Picker
+
+    /** Custom Color Picker
      */
     //% blockId=customColorPicker
     //% block="%value"
@@ -103,8 +103,7 @@ namespace PixelBox {
         return value;
     }
 
-    /**
-     * Pixel Box Row
+    /** Pixel Box Row
      * @param row - row number
      * @param p0 - pixel at col=0
      * @param p1 - pixel at col=1
@@ -138,8 +137,7 @@ namespace PixelBox {
     }
 
 
-    /**
-     * Replace Color
+    /** Replace Color
      * @param targetColor - The color to be replaced
      * @param replacementColor - The new color to insert
      * @param startRow - The row to start the replacement
@@ -172,8 +170,7 @@ namespace PixelBox {
     }
 
 
-    /**
-     * Replace Color Range
+    /** Replace Color Range
      * @param targetColor - The color to be replaced
      * @param replacementColor - The new color to insert
      * @param startRow - The row to start the replacement
@@ -208,8 +205,7 @@ namespace PixelBox {
     }
 
 
-    /**
-     * Shift Image
+    /** Shift Image
      * @param shiftPixels - The number of colors to shift the image right
      */
 
@@ -219,53 +215,57 @@ namespace PixelBox {
     //% weight = 60
     export function shiftImage(shiftDir: ShiftDirection, shiftPixels: ShiftPixels, fillColor: number): void {
         switch(shiftDir){
-            case ShiftDirection.up:
-                //Shift img Array Right
+            //Shift img Array Up 
+            case ShiftDirection.up:              
                 for (let r = 0; r <= 7; r++) {
                     for (let c = 7; c >= 0; c--) {
                         if (c > 0) {
                             img[r][c] = img[r][c - shiftPixels];
                         } else {
-                            img[r][c] = 0;
+                            img[r][c] = fillColor;
                         }
                     }
-                };
-
-            case ShiftDirection.left:
-            //Shift img Array Right
-            for (let r = 0; r <= 7; r++) {
-                for (let c = 0; c <= 7; c++) {
-                    if (c < 7) {
-                        img[r][c] = img[r][c + shiftPixels];
-                    } else {
-                        img[r][c] = 0;
+                }
+                break;
+            
+            //Shift img Array Left
+            case ShiftDirection.left: 
+                 for (let r = 0; r <= 7; r++) {
+                    for (let c = 0; c <= 7; c++) {
+                        if (c < 7) {
+                            img[r][c] = img[r][c + shiftPixels];
+                        } else {
+                            img[r][c] = fillColor;
+                        }
                     }
                 }
-            };
+                break;
 
-            case ShiftDirection.right:
             //Shift img Array Right
-            for (let r = 0; r <= 7; r++) {
-                for (let c = 7; c >= 0; c--) {
-                    if (c > 0) {
-                        img[r][c] = img[r][c-shiftPixels];
-                    } else {
-                        img[r][c] = 0;
-                    }           
+            case ShiftDirection.right: 
+                for (let r = 0; r <= 7; r++) {
+                    for (let c = 7; c >= 0; c--) {
+                        if (c > 0) {
+                            img[r][c] = img[r][c-shiftPixels];
+                        } else {
+                            img[r][c] = fillColor;
+                        }           
+                    }
                 }
-            };
+                break;
 
-            case ShiftDirection.down:
-                //Shift img Array Right
+            //Shift img Array Down
+            case ShiftDirection.down: 
                 for (let r = 0; r <= 7; r++) {
                     for (let c = 7; c >= 0; c--) {
                         if (c > 0) {
                             img[r][c] = img[r][c - shiftPixels];
                         } else {
-                            img[r][c] = 0;
+                            img[r][c] = fillColor;
                         }
                     }
-                };
+                }
+                break;
         }
 
         //Upload img Array to the PixelBox Screen
