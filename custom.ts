@@ -15,9 +15,6 @@
 * 4) Can I user-change the colors assigned to the image? 
 */
 
-
-
-
 /**
  * Custom blocks
  */
@@ -217,10 +214,10 @@ namespace PixelBox {
         switch(shiftDir){
             //Shift img Array Up 
             case ShiftDirection.up:              
-                for (let r = 0; r <= 7; r++) {
-                    for (let c = 7; c >= 0; c--) {
-                        if (c > 0) {
-                            img[r][c] = img[r][c - shiftPixels];
+                for (let c = 0; c <= 7; c++) {
+                    for (let r = 0; r <= 7; r++) {
+                        if (r < 8-shiftPixels) {
+                            img[r][c] = img[r+shiftPixels][c];
                         } else {
                             img[r][c] = fillColor;
                         }
