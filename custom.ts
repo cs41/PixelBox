@@ -38,7 +38,7 @@ enum RCIndex{ //Row and Column Index
     Seven = 7
 }
 
-enum ShiftDirection { //Which direction to shift the image
+enum ShiftDirection { //Which ShiftDirection to shift the image
     //% block="Up"
     up,
     //% block="Left"
@@ -203,7 +203,8 @@ namespace PixelBox {
 
 
     /** Shift Image
-     * @param shiftPixels - The number of colors to shift the image right
+     * @param scrollPixels - The ShiftDirection to shift the pixels
+     * @param shiftPixels - The number of colors to shift at one time
      */
 
     //% block="shift image %shiftDir %shiftPixels pixel(s), Fill %fillColor"
@@ -253,10 +254,10 @@ namespace PixelBox {
 
             //Shift img Array Down
             case ShiftDirection.down: 
-                for (let r = 0; r <= 7; r++) {
-                    for (let c = 7; c >= 0; c--) {
-                        if (c > 0) {
-                            img[r][c] = img[r][c - shiftPixels];
+                for (let c = 0; c <= 7; c++) {
+                    for (let r = 7; r >= 0; r--) {
+                        if (r > shiftPixels-1) {
+                            img[r][c] = img[r - shiftPixels][c];
                         } else {
                             img[r][c] = fillColor;
                         }
@@ -273,5 +274,81 @@ namespace PixelBox {
         }
     }
 
+    /** Scroll Image
+     * @param scrollPixels - The ShiftDirection to scoll the pixels
+     * @param shiftPixels - The number of colors to scroll at one time
+     */
 
+    //% block="scroll image %scrollDir %scrollPixels pixel(s)"
+    //% inlineInputMode=inline
+    //% weight = 60
+    export function scrollImage(scrollDir: ShiftDirection, scrollPixels: ShiftPixels): void {
+        switch (scrollDir) {
+            //Shift img Array Up 
+            case ShiftDirection.up:
+                for (let c = 0; c <= 7; c++) {
+                    for (let r = 0; r <= 7; r++) {
+                        if (r < 8 - scrollPixels) {
+                            img[r][c] = img[r + scrollPixels][c];
+                        } else {
+                            img[r][c] = fillColor;
+                        }
+                    }
+                }
+                break;
+
+            //Shift img Array Left
+            case ShiftDirection.left:
+                for (let r = 0; r <= 7; r++) {
+                    for (let c = 0; c <= 7; c++) {
+                        if (c < 8 - scrollPixels) {
+                            img[r][c] = img[r][c + scrollPixels];
+                        } else {
+                            img[r][c] = fillColor;
+                        }
+                    }
+                }
+                break;
+
+            //Shift img Array Right
+            case ShiftDirection.right:
+                for (let r = 0; r <= 7; r++) {
+                    for (let c = 7; c >= 0; c--) {
+                        if (c > scrollPixels - 1) {
+                            img[r][c] = img[r][c - scrollPixels];
+                        } else {
+                            img[r][(8-scrollPixels) - c] = img[r][c]; 1
+                            
+                            img[r][0] = img[r][6]; 2
+                            img[r][1] = img[r][7]; 2
+                            
+                            img[r][0] = img[r][5]; 3
+                            img[r][1] = img[r][6]; 3
+                            img[r][2] = img[r][7]; 3
+                        }
+                    }
+                }
+                break;
+
+            //Shift img Array Down
+            case ShiftDirection.down:
+                for (let c = 0; c <= 7; c++) {
+                    for (let r = 7; r >= 0; r--) {
+                        if (r > scrollPixels - 1) {
+                            img[r][c] = img[r - scrollPixels][c];
+                        } else {
+                            img[r][c] = fillColor;
+                        }
+                    }
+                }
+                break;
+        }
+
+        //Upload img Array to the PixelBox Screen
+        for (let r = 0; r <= 7; r++) {
+            for (let c = 0; c <= 7; c++) {
+                strip.setPixelColor(r * 8 + c, img[r][c])
+            }
+        }
+    }
 }

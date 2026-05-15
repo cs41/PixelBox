@@ -21,6 +21,8 @@ function frame1 () {
 let strip = neopixel.create(DigitalPin.P1, 64, NeoPixelMode.RGB)
 frame2()
 strip.show()
-basic.pause(1000)
-PixelBox.shiftImage(ShiftDirection.up, ShiftPixels.Eight, 0xff00ff)
-strip.show()
+for (let index = 0; index < 8; index++) {
+    basic.pause(100)
+    PixelBox.shiftImage(ShiftDirection.down, ShiftPixels.One, 0x000000)
+    strip.show()
+}
