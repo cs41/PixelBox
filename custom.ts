@@ -232,7 +232,7 @@ namespace PixelBox {
             case ShiftDirection.left: 
                  for (let r = 0; r <= 7; r++) {
                     for (let c = 0; c <= 7; c++) {
-                        if (c < 7) {
+                        if (c < 8-shiftPixels) {
                             img[r][c] = img[r][c + shiftPixels];
                         } else {
                             img[r][c] = fillColor;
@@ -245,7 +245,7 @@ namespace PixelBox {
             case ShiftDirection.right: 
                 for (let r = 0; r <= 7; r++) {
                     for (let c = 7; c >= 0; c--) {
-                        if (c > 0) {
+                        if (c > shiftPixels-1) {
                             img[r][c] = img[r][c-shiftPixels];
                         } else {
                             img[r][c] = fillColor;
