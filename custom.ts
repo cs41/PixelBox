@@ -283,8 +283,10 @@ namespace PixelBox {
     //% inlineInputMode=inline
     //% weight = 60
     export function scrollImage(scrollDir: ShiftDirection, scrollPixels: ShiftPixels): void {
+        let imgCopy = img;
+
         switch (scrollDir) {
-            //Shift img Array Up 
+            //Scroll img Array Up 
             case ShiftDirection.up:
                 for (let c = 0; c <= 7; c++) {
                     for (let r = 0; r <= 7; r++) {
@@ -297,7 +299,7 @@ namespace PixelBox {
                 }
                 break;
 
-            //Shift img Array Left
+            //Scroll img Array Left
             case ShiftDirection.left:
                 for (let r = 0; r <= 7; r++) {
                     for (let c = 0; c <= 7; c++) {
@@ -310,27 +312,22 @@ namespace PixelBox {
                 }
                 break;
 
-            //Shift img Array Right
+            //Scroll img Array Right
             case ShiftDirection.right:
                 for (let r = 0; r <= 7; r++) {
                     for (let c = 7; c >= 0; c--) {
-                        if (c > scrollPixels - 1) {
+                        img[r][c] = imgCopy[r][(((c-scrollPixels) % 8) + 8) % 8];
+                        console.log((((c - scrollPixels) % 8) + 8) % 8)
+/**                        if (c > scrollPixels - 1) {
                             img[r][c] = img[r][c - scrollPixels];
                         } else {
-                            img[r][c] = img[r][c+8-scrollPixels];
-                            
-                           /** img[r][0] = img[r][6]; 2
-                            img[r][1] = img[r][7]; 2
-                            
-                            img[r][0] = img[r][5]; 3
-                            img[r][1] = img[r][6]; 3
-                            img[r][2] = img[r][7]; 3*/
-                        }
+                            img[r][c] = imgCopy[r][c+8-scrollPixels];
+                        }*/
                     }
                 }
                 break;
 
-            //Shift img Array Down
+            //Scroll img Array Down
             case ShiftDirection.down:
                 for (let c = 0; c <= 7; c++) {
                     for (let r = 7; r >= 0; r--) {
