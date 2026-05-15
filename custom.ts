@@ -234,9 +234,9 @@ namespace PixelBox {
             case ShiftDirection.left:
             //Shift img Array Right
             for (let r = 0; r <= 7; r++) {
-                for (let c = 7; c >= 0; c--) {
-                    if (c > 0) {
-                        img[r][c] = img[r][c - shiftPixels];
+                for (let c = 0; c <= 7; c++) {
+                    if (c < 7) {
+                        img[r][c] = img[r][c + shiftPixels];
                     } else {
                         img[r][c] = 0;
                     }
