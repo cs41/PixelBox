@@ -291,7 +291,7 @@ namespace PixelBox {
                         if (r < 8 - scrollPixels) {
                             img[r][c] = img[r + scrollPixels][c];
                         } else {
-                            img[r][c] = fillColor;
+                            img[r][c] = 0;
                         }
                     }
                 }
@@ -304,7 +304,7 @@ namespace PixelBox {
                         if (c < 8 - scrollPixels) {
                             img[r][c] = img[r][c + scrollPixels];
                         } else {
-                            img[r][c] = fillColor;
+                            img[r][c] = 0;
                         }
                     }
                 }
@@ -317,14 +317,14 @@ namespace PixelBox {
                         if (c > scrollPixels - 1) {
                             img[r][c] = img[r][c - scrollPixels];
                         } else {
-                            img[r][(8-scrollPixels) - c] = img[r][c]; 1
+                            img[r][c] = img[r][c+8-scrollPixels];
                             
-                            img[r][0] = img[r][6]; 2
+                           /** img[r][0] = img[r][6]; 2
                             img[r][1] = img[r][7]; 2
                             
                             img[r][0] = img[r][5]; 3
                             img[r][1] = img[r][6]; 3
-                            img[r][2] = img[r][7]; 3
+                            img[r][2] = img[r][7]; 3*/
                         }
                     }
                 }
@@ -337,7 +337,7 @@ namespace PixelBox {
                         if (r > scrollPixels - 1) {
                             img[r][c] = img[r - scrollPixels][c];
                         } else {
-                            img[r][c] = fillColor;
+                            img[r][c] = 0;
                         }
                     }
                 }
