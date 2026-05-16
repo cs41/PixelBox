@@ -39,8 +39,26 @@ function frame0 () {
     PixelBox.pixelBoxRow(RCIndex.Seven, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000)
 }
 let strip = neopixel.create(DigitalPin.P1, 64, NeoPixelMode.RGB)
-frame3()
+frame2()
 strip.show()
 basic.pause(1000)
-PixelBox.scrollImage(ShiftDirection.right, ShiftPixels.One)
-strip.show()
+for (let index = 0; index < 8; index++) {
+    PixelBox.scrollImage(ShiftDirection.right, ShiftPixels.One)
+    strip.show()
+    basic.pause(100)
+}
+for (let index = 0; index < 8; index++) {
+    PixelBox.scrollImage(ShiftDirection.up, ShiftPixels.One)
+    strip.show()
+    basic.pause(100)
+}
+for (let index = 0; index < 8; index++) {
+    PixelBox.scrollImage(ShiftDirection.left, ShiftPixels.One)
+    strip.show()
+    basic.pause(100)
+}
+for (let index = 0; index < 8; index++) {
+    PixelBox.scrollImage(ShiftDirection.down, ShiftPixels.One)
+    strip.show()
+    basic.pause(100)
+}

@@ -284,23 +284,17 @@ namespace PixelBox {
     export function scrollImage(scrollDir: ShiftDirection, scrollPixels: ShiftPixels): void {
         let pnMod = 0;
         let val;
-        let origImg = [[0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0]];
+        let origImg = [[0],[0],[0],[0],[0],[0],[0],[0]];
 
-
+        // Make a copy of the original img.
+        // Note: When I tried the simple assignment origImg = img, they became linked by reference ????
         for (let r = 0; r <= 7; r++) {
             for (let c = 0; c <= 7; c++) {
                 origImg[r][c] = img[r][c];
             }
         }
 
-        console.log('############### origImg ########################');
+        /*console.log('############### origImg ########################');
         for (let r = 0; r <= 7; r++) {
             console.log(origImg[r][0] + '\t' + origImg[r][1] + '\t' + origImg[r][2] + '\t' + origImg[r][3] + '\t' + origImg[r][4] + '\t' + origImg[r][5] + '\t' + origImg[r][6] + '\t' + origImg[r][7]);
         }
@@ -308,18 +302,15 @@ namespace PixelBox {
         for (let r = 0; r <= 7; r++) {
             console.log(img[r][0] + '\t' + img[r][1] + '\t' + img[r][2] + '\t' + img[r][3] + '\t' + img[r][4] + '\t' + img[r][5] + '\t' + img[r][6] + '\t' + img[r][7]);
         }
-        console.log('===================================================');
+        console.log('===================================================');*/
 
         switch (scrollDir) {
             //Scroll img Array Up 
             case ShiftDirection.up:
                 for (let c = 0; c <= 7; c++) {
                     for (let r = 0; r <= 7; r++) {
-                        if (r < 8 - scrollPixels) {
-                            img[r][c] = img[r + scrollPixels][c];
-                        } else {
-                            img[r][c] = 0;
-                        }
+                        pnMod = (((r + scrollPixels) % 8) + 8) % 8; //Positive/Negative mod
+                        img[r][c] = origImg[pnMod][c];
                     }
                 }
                 break;
@@ -328,11 +319,8 @@ namespace PixelBox {
             case ShiftDirection.left:
                 for (let r = 0; r <= 7; r++) {
                     for (let c = 0; c <= 7; c++) {
-                        if (c < 8 - scrollPixels) {
-                            img[r][c] = img[r][c + scrollPixels];
-                        } else {
-                            img[r][c] = 0;
-                        }
+                        pnMod = (((c + scrollPixels) % 8) + 8) % 8; //Positive/Negative mod
+                        img[r][c] = origImg[r][pnMod];
                     }
                 }
                 break;
@@ -340,7 +328,7 @@ namespace PixelBox {
             //Scroll img Array Right
             case ShiftDirection.right:
                 for (let r = 0; r <= 7; r++) {
-                    console.log('############### origImg ########################')
+                    /*console.log('############### origImg ########################')
                     for (let r = 0; r <= 7; r++) {
                         console.log(origImg[r][0] + '\t' + origImg[r][1] + '\t' + origImg[r][2] + '\t' + origImg[r][3] + '\t' + origImg[r][4] + '\t' + origImg[r][5] + '\t' + origImg[r][6] + '\t' + origImg[r][7]);
                     }
@@ -348,12 +336,11 @@ namespace PixelBox {
                     for (let r = 0; r <= 7; r++) {
                         console.log(img[r][0] + '\t' + img[r][1] + '\t' + img[r][2] + '\t' + img[r][3] + '\t' + img[r][4] + '\t' + img[r][5] + '\t' + img[r][6] + '\t' + img[r][7]);
                     }
-                    console.log('=============== row '+r+' ======================')
+                    console.log('=============== row '+r+' ======================')*/
                     for (let c = 7; c >= 0; c--) {
                         pnMod = (((c - scrollPixels) % 8) + 8) % 8; //Positive/Negative mod
-                        val = origImg[r][pnMod];
-                        img[r][c] = val;
-                        console.log('img[' + r + '][' + c + ']=origImg[' + r + '][' + pnMod + '] --> ' + origImg[r][pnMod]);
+                        img[r][c] = origImg[r][pnMod];
+                        //console.log('img[' + r + '][' + c + ']=origImg[' + r + '][' + pnMod + '] --> ' + origImg[r][pnMod]);
                     }
                 }
                 break;
@@ -362,11 +349,8 @@ namespace PixelBox {
             case ShiftDirection.down:
                 for (let c = 0; c <= 7; c++) {
                     for (let r = 7; r >= 0; r--) {
-                        if (r > scrollPixels - 1) {
-                            img[r][c] = img[r - scrollPixels][c];
-                        } else {
-                            img[r][c] = 0;
-                        }
+                        pnMod = (((r - scrollPixels) % 8) + 8) % 8; //Positive/Negative mod
+                        img[r][c] = origImg[pnMod][c];
                     }
                 }
                 break;
@@ -379,9 +363,9 @@ namespace PixelBox {
             }
         }
         
-        console.log('############### origImg ########################');
+        /*console.log('############### origImg ########################');
         for (let r = 0; r <= 7; r++) {
             console.log(origImg[r][0] + '\t' + origImg[r][1] + '\t' + origImg[r][2] + '\t' + origImg[r][3] + '\t' + origImg[r][4] + '\t' + origImg[r][5] + '\t' + origImg[r][6] + '\t' + origImg[r][7]);
-        }
+        }*/
     }
 }
