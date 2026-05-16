@@ -71,14 +71,7 @@ enum ShiftPixels { //How many pixels to shift the image
 //% weight=100 color=#000000 icon=""
 namespace PixelBox {
     
-    let img = [[0, 0, 0, 0, 0, 0, 0, 0],
-               [0, 0, 0, 0, 0, 0, 0, 0],
-               [0, 0, 0, 0, 0, 0, 0, 0],
-               [0, 0, 0, 0, 0, 0, 0, 0],
-               [0, 0, 0, 0, 0, 0, 0, 0],
-               [0, 0, 0, 0, 0, 0, 0, 0],
-               [0, 0, 0, 0, 0, 0, 0, 0],
-               [0, 0, 0, 0, 0, 0, 0, 0]];
+    let img = [[0], [0], [0], [0], [0], [0], [0], [0]];
     
     /** Custom Color Picker
      */
