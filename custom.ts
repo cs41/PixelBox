@@ -13,6 +13,12 @@
 * TODO:
 * 3) Can I user-select the colors, order, and number of colors in the color picker?
 * 4) Can I user-change the colors assigned to the image? 
+* 2026.05.16
+* 1) Add a block to change all pixels a color
+* 2) Review shiftImage function. Can it be made more efficient to not skip when shift times are under 375ms?
+* 3) Can palette colors be user-selected?
+* 4) Can frames be stitched together in a frame map so that user can scroll through the map? (Scavenger Hunt)
+* 5) Learn how to put the blocks in desired order
 */
 
 /**
