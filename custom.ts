@@ -79,8 +79,7 @@ namespace PixelBox {
                [0, 0, 0, 0, 0, 0, 0, 0],
                [0, 0, 0, 0, 0, 0, 0, 0],
                [0, 0, 0, 0, 0, 0, 0, 0]];
-
-
+    
     /** Custom Color Picker
      */
     //% blockId=customColorPicker
@@ -283,7 +282,33 @@ namespace PixelBox {
     //% inlineInputMode=inline
     //% weight = 60
     export function scrollImage(scrollDir: ShiftDirection, scrollPixels: ShiftPixels): void {
-        let imgCopy = img;
+        let pnMod = 0;
+        let val;
+        let origImg = [[0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0]];
+
+
+        for (let r = 0; r <= 7; r++) {
+            for (let c = 0; c <= 7; c++) {
+                origImg[r][c] = img[r][c];
+            }
+        }
+
+        console.log('############### origImg ########################');
+        for (let r = 0; r <= 7; r++) {
+            console.log(origImg[r][0] + '\t' + origImg[r][1] + '\t' + origImg[r][2] + '\t' + origImg[r][3] + '\t' + origImg[r][4] + '\t' + origImg[r][5] + '\t' + origImg[r][6] + '\t' + origImg[r][7]);
+        }
+        console.log('################ img ##########################');
+        for (let r = 0; r <= 7; r++) {
+            console.log(img[r][0] + '\t' + img[r][1] + '\t' + img[r][2] + '\t' + img[r][3] + '\t' + img[r][4] + '\t' + img[r][5] + '\t' + img[r][6] + '\t' + img[r][7]);
+        }
+        console.log('===================================================');
 
         switch (scrollDir) {
             //Scroll img Array Up 
@@ -315,14 +340,20 @@ namespace PixelBox {
             //Scroll img Array Right
             case ShiftDirection.right:
                 for (let r = 0; r <= 7; r++) {
+                    console.log('############### origImg ########################')
+                    for (let r = 0; r <= 7; r++) {
+                        console.log(origImg[r][0] + '\t' + origImg[r][1] + '\t' + origImg[r][2] + '\t' + origImg[r][3] + '\t' + origImg[r][4] + '\t' + origImg[r][5] + '\t' + origImg[r][6] + '\t' + origImg[r][7]);
+                    }
+                    console.log('################ img ##########################')
+                    for (let r = 0; r <= 7; r++) {
+                        console.log(img[r][0] + '\t' + img[r][1] + '\t' + img[r][2] + '\t' + img[r][3] + '\t' + img[r][4] + '\t' + img[r][5] + '\t' + img[r][6] + '\t' + img[r][7]);
+                    }
+                    console.log('=============== row '+r+' ======================')
                     for (let c = 7; c >= 0; c--) {
-                        img[r][c] = imgCopy[r][(((c-scrollPixels) % 8) + 8) % 8];
-                        console.log((((c - scrollPixels) % 8) + 8) % 8)
-/**                        if (c > scrollPixels - 1) {
-                            img[r][c] = img[r][c - scrollPixels];
-                        } else {
-                            img[r][c] = imgCopy[r][c+8-scrollPixels];
-                        }*/
+                        pnMod = (((c - scrollPixels) % 8) + 8) % 8; //Positive/Negative mod
+                        val = origImg[r][pnMod];
+                        img[r][c] = val;
+                        console.log('img[' + r + '][' + c + ']=origImg[' + r + '][' + pnMod + '] --> ' + origImg[r][pnMod]);
                     }
                 }
                 break;
@@ -346,6 +377,11 @@ namespace PixelBox {
             for (let c = 0; c <= 7; c++) {
                 strip.setPixelColor(r * 8 + c, img[r][c])
             }
+        }
+        
+        console.log('############### origImg ########################');
+        for (let r = 0; r <= 7; r++) {
+            console.log(origImg[r][0] + '\t' + origImg[r][1] + '\t' + origImg[r][2] + '\t' + origImg[r][3] + '\t' + origImg[r][4] + '\t' + origImg[r][5] + '\t' + origImg[r][6] + '\t' + origImg[r][7]);
         }
     }
 }
