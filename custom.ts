@@ -4,7 +4,14 @@
 * Read more at https://makecode.microbit.org/blocks/custom
 * https://johnvidler.co.uk/blog/makecode-block-annotations/
 * https://makecode.com/defining-blocks
+
+* 8x8 Pixel figure video
+* https://video.search.yahoo.com/search/video;_ylt=AwrEnQg1bQtqhAIAouJXNyoA;_ylu=Y29sbwNiZjEEcG9zAzEEdnRpZAMEc2VjA3BpdnM-?p=8x8+bit+characters&fr2=piv-web&type=E210US91088G0&fr=mcafee&rurl=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3Dm5PHiJjt270
 *
+
+* Elecfreaks expansion board $9.90/expansion
+* https://www.amazon.com/Elecfreaks-microbit-Sensor-Integrated-Compatible/dp/B093QL3DVT/ref=sr_1_41?crid=1RWFHMSRONEDR&dib=eyJ2IjoiMSJ9.H0frHxjCKaoia6cOJsPX78vdf2S4GJcIYIkaylwwmOKPM6Q8YvHD_SBdajWiB0dGQ9lhIrf4MA846QeDrIbZ4n-Meni0SjIRZnlK1SnfPqI1r34gjUza5F4EVvtcLZH5Epf1l3kzni_vDKZsnN2F2y61ELwjnPcrLG7Piar6qV-MY1Vpcn2iOiz_GUI6ALvsI4g_jF0AbN9fvMoXcIpwJ7p23dF3tu6O87_aYGrFYq33Y-Xw0kkY3Xco-b2Ne_tUpR_1W_lcuZsavp79MTk3Yl97YZCMLKxHImDTUPwfeec.8DIDkJ_Q1bDUPTjNKSvJOtTthCyYqs3EcU-AHdhtKLU&dib_tag=se&keywords=elecfreaks&qid=1779135895&sprefix=elecf%2Caps%2C154&sr=8-41
+
 * 2026.05.06
 * Found a customizable color picker in Extensions > Brightboard
 * Using parts of it to add functionality
@@ -14,12 +21,29 @@
 * 3) Can I user-select the colors, order, and number of colors in the color picker?
 * 4) Can I user-change the colors assigned to the image? 
 * 2026.05.16
-* 1) Add a block to change all pixels a color
-* 2) Review shiftImage function. Can it be made more efficient to not skip when shift times are under 375ms?
+* 1) Add a block to change all pixels a color*
+* 2) Review shiftImage function. Can it be made more efficient to not skip when shift times are under 375ms?*
 * 3) Can palette colors be user-selected?
 * 4) Can frames be stitched together in a frame map so that user can scroll through the map? (Scavenger Hunt)
 * 5) Learn how to put the blocks in desired order
+
+*Curriculum:
+*   Intro:
+*        Makecode - Block coding,
+*        Microbit - Download, Buttons, pins, etc.
+*        PixelBox - Index (0-63) of rows and columns
+*   Ex01a-Set a pixel color with RGB and Indexing (Connect and Upload) - Colors as RGB VARIABLES
+*   Ex01b-Set other pixels different colors - DATA INDEXING
+*   Ex02-Make a 2x2 block - FUNCTIONS
+*   Ex03-Shift the 2x2 block (up, left, right, down) - LOOPS
+*   Ex04-Scroll the 2x2 block (up, left, right, down) - LOOPS
+*   Ex05-Animate with different frames
+*   Ex06-Control motion of block with buttons - CONDITIONALS
+*   Ex07-Control motion of clck with tilit - CONDITIONALS
+*   Ex08-Make Ghost and demo animations and controls with Ghost
+*   Ex09- Let them make and control their own character (suggest 8x8 pixel art video) - CREATIVITY
 */
+
 
 /**
  * Custom blocks
@@ -89,9 +113,12 @@ namespace PixelBox {
     //% value.fieldOptions.decompileLiterals=true
     //% value.defl='#000000'
     //% weight=100
-    // Color Palatte:                    Red, Magenta, Pink;              Orange, Yellow, Gold;        Dark Green, Green, Light Green;       Blue, Cyan, Teal;               Purple, Medium Purple,Lavender;        Brown, Tan, Beige;              Dark Gray, Medium Gray, Light Grey;     Black, White 
-    //% value.fieldOptions.colours='["#ff0000","#ff00ff","#ffb6c1",    "#ff8000","#ffff00","#daa520",    "#008000","#00ff00","#90ee90",    "#0000ff","#00ffff","#008080",    "#4b0082","#9370db","#e6e6fa",        "#8b4513","#d2b48c","#f5deb3",   "#303030","#808080","#d0d0d0",           "#000000","#ffffff"]'
+    // Color Palette 0:
+    //% value.fieldOptions.colours='["#ff0000","#00ff00","#0000ff"]'
+    // Color Palette 1:
     // value.fieldOptions.colours='["#ff0000","#00ff00","#0000ff","#ffff00","#ff00ff","#00ffff","#ffffff","#808080","#000000"]'
+    // Color Palette 2:                    Red, Magenta, Pink;              Orange, Yellow, Gold;        Dark Green, Green, Light Green;       Blue, Cyan, Teal;               Purple, Medium Purple,Lavender;        Brown, Tan, Beige;              Dark Gray, Medium Gray, Light Grey;     Black, White 
+    // value.fieldOptions.colours='["#ff0000","#ff00ff","#ffb6c1",    "#ff8000","#ffff00","#daa520",    "#008000","#00ff00","#90ee90",    "#0000ff","#00ffff","#008080",    "#4b0082","#9370db","#e6e6fa",        "#8b4513","#d2b48c","#f5deb3",   "#303030","#808080","#d0d0d0",           "#000000","#ffffff"]'
     //% value.fieldOptions.columns=3 
     //% value.fieldOptions.className='rgbColorPicker' 
     export function __colorNumberPicker(value: number) {

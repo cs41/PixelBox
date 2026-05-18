@@ -12,6 +12,7 @@ function frame2 () {
     PixelBox.pixelBoxRow(RCIndex.Five, 0xff0000, 0xff0000, 0xff0000, 0xff0000, 0xff0000, 0xff0000, 0xff0000, 0xff0000)
     PixelBox.pixelBoxRow(RCIndex.Six, 0xff0000, 0xff0000, 0xff0000, 0xff0000, 0xff0000, 0xff0000, 0xff0000, 0xff0000)
     PixelBox.pixelBoxRow(RCIndex.Seven, 0xff0000, 0x000000, 0xff0000, 0x000000, 0xff0000, 0xff0000, 0x000000, 0xff0000)
+    strip.show()
 }
 function shiftDemo () {
     frame2()
@@ -95,6 +96,15 @@ function scrollDemo () {
         basic.pause(100)
     }
 }
+function scroll_demo () {
+    strip.show()
+    basic.pause(1000)
+    for (let index = 0; index < 8; index++) {
+        PixelBox.scrollImage(ShiftDirection.right, ShiftPixels.One)
+        strip.show()
+        basic.pause(100)
+    }
+}
 function frame0 () {
     PixelBox.pixelBoxRow(RCIndex.Zero, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000)
     PixelBox.pixelBoxRow(RCIndex.One, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000)
@@ -105,5 +115,14 @@ function frame0 () {
     PixelBox.pixelBoxRow(RCIndex.Six, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000)
     PixelBox.pixelBoxRow(RCIndex.Seven, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000)
 }
+function myColors () {
+    tech_gold = neopixel.rgb(179, 163, 105)
+}
+let tech_gold = 0
 let strip: neopixel.Strip = null
 strip = neopixel.create(DigitalPin.P1, 64, NeoPixelMode.RGB)
+strip.setBrightness(60)
+myColors()
+frame2()
+PixelBox.replaceColor(0xff0000, tech_gold)
+strip.show()
